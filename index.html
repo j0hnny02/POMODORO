@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POMODORO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>POMODORO</h1>
+        <p>Turn volume up for feedback on session completion. <ion-icon name="headset"></ion-icon> </p>
+        <div class='progress-place'>
+            <div class='progress'></div>
+        </div>
+    </header>
+    <main>
+        <div class='container'>
+            <div class = 'timer'>
+                <div class='change-time'>
+                    <div class='operations-icons'>
+                        <ion-icon class = 'plus' name="add-circle"></ion-icon>
+                        <ion-icon class = 'minus'name="remove-circle"></ion-icon>
+                    </div>
+                    <h2 class='time'>25:00</h2> 
+                </div>    
+                <p>Stop looking at me and focus!</p>
+            </div>
+            <div class='controls-icons'>
+                <ion-icon class = 'play' name="play-circle"></ion-icon>
+                <ion-icon class = 'pause' name="pause-circle"></ion-icon>
+                <ion-icon class = 'reset' name="stop-circle"></ion-icon>
+            </div>
+            <div class='set-time'>
+                <button class = 'button25'>25 min</button>
+                <button class = 'button50'>50 min</button>
+            </div>
+            <div class='sesion-status'>
+                <div class='left-side'>
+                    <p>Focus: <span id='focus'>25</span> min</p>
+                    <p>Break: <span id='break'>5</span> min</p>
+                    <p>Long break: <span id='long-break'>15</span> min</p>
+                </div>
+                <div class='right-side'>
+                    <h3>Sessions</h3>
+                    <p class='session-summary'>0</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p><a href='https://github.com/j0hnny02'>My github <ion-icon name="logo-github"></ion-icon></a></p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+</body>
+</html>
