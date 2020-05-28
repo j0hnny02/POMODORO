@@ -49,7 +49,7 @@ const
         } else {
             time_div.innerHTML = '0' + (parseFloat(time_div.textContent) + 1) + ':' + time_div.textContent.slice(3);
         }
-        startValue = time_div.textContent;
+        
     })
 
     minus_div.addEventListener('click', e => {
@@ -67,7 +67,7 @@ const
         } else if (parseFloat(time_div.textContent) > 1) {
             time_div.innerHTML = '0' + (parseFloat(time_div.textContent) - 1) + ':' + time_div.textContent.slice(3);
         }
-        startValue = time_div.textContent;
+        
     })
 
     var timer;
@@ -79,6 +79,7 @@ const
         root.style.setProperty('--time',`${parseFloat(startValue[0].split(':')[0])*60 + 's'}`);
         root.style.setProperty('--width', '100%');
         root.style.setProperty('--playstate', 'running');
+        progress_div.style.setProperty('display', '');
     })
 
     pause_div.addEventListener('click', e => {
@@ -95,25 +96,36 @@ const
             timer = 0;
             time_div.innerHTML = startValue[0];
             startValue.length = 0;
-            root.style.setProperty('--playstate', 'paused');
-            root.style.setProperty('--width', '0%');
-            root.style.setProperty('--time','0s');
+            root.style.removeProperty('--playstate');
+            root.style.removeProperty('--width');
+            root.style.removeProperty('--time');
+            progress_div.style.setProperty('display', 'none');
+            session_summary_div.innerHTML = 0;
         }
     })
 
     let i = 1;
     let session = 0;
 
+    function progress() {
+        root.style.setProperty('--time',`${parseFloat(time_div.textContent)*60 + 's'}`);
+        root.style.setProperty('--width', '100%');
+        root.style.setProperty('--playstate', 'running');
+        progress_div.style.setProperty('display', 'block');
+    }
+
     function Break() {
         var startValueNumber = parseFloat(startValue[0].split(':')[0]);
         if (startValueNumber < 50 && i === 1) {
             time_div.innerHTML = '05:00';
             i += 1;
+            progress();
             return true;
         }
         if (startValueNumber >= 50 && i === 1) {
             time_div.innerHTML = '15:00';
             i += 1;
+            progress();
             return true;
         }
         if (startValueNumber < 50 && i === 2) {
@@ -121,6 +133,7 @@ const
             i+=1;
             session += 1;
             session_summary_div.innerHTML = session;
+            progress();
             return true;
         }
         if (startValueNumber >= 50 && i === 2) {
@@ -128,17 +141,20 @@ const
             i+=1;
             session += 1;
             session_summary_div.innerHTML = session;
+            progress();
             return true;
         }
         if (startValueNumber < 50 && i === 3) {
             time_div.innerHTML = '15:00';
             i = 1;
+            progress();
             return true;
         }
         if (startValueNumber >= 50 && i === 3) {
             time_div.innerHTML = '30:00';
             i = 1;
-            return true;
+            progress();
+            return true;           
         }
     }
 
@@ -169,6 +185,10 @@ const
             time_div.innerHTML = `0${minutes}` + ':0' + (seconds -1);
             return true;
         } if(minutes === 0 && seconds === 0) {
+            root.style.removeProperty('--playstate');
+            root.style.removeProperty('--width');
+            root.style.removeProperty('--time');
+            progress_div.style.setProperty('display', 'none');
             Break();
             return true;
         }
